@@ -16,6 +16,6 @@ def write_to_log(info_to_write):
     if file:
         file.write(str(info_to_write) + '\n')  # newline character added by default
     else:
-        print(f"{Fore.RED}ERROR: Could not open log file!{Style.RESET_ALL}")
+        print(f"{Fore.BLUE}ERROR: Could not open log file!{Style.RESET_ALL}")
     file.close()
 
