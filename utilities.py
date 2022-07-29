@@ -1,9 +1,11 @@
 # -------------------- #
 # Python Utilities
 # by Ben Greenfield
+# Co-authored by Ben Placzek
 # -------------------- #
 
 import datetime
+import time
 from colorama import Fore
 from colorama import Style
 
@@ -39,3 +41,23 @@ def bye():
     print("Normal Termination")
     print("--------------------------")
 
+
+# takes an initial format argument followed by any number of data args
+# formats and prints an error message then exits
+def fatal(format, *argv):
+    print(f"{Fore.RED}" + str(format) + f"{Style.RESET_ALL}")
+    for x in argv:
+        print(f"{Fore.RED}" + str(x) + f"{Style.RESET_ALL}")
+    quit()
+
+
+# delays a specified number of seconds, rounds up to the nearest integer
+# second argument optional
+def delay(seconds, debug_comments=False):
+    counter = 0
+    while counter < seconds:
+        counter += 1
+        if debug_comments == True:
+            print(counter)
+        time.sleep(1)
+        
