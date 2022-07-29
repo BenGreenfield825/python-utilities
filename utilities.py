@@ -1,6 +1,7 @@
 # -------------------- #
 # Python Utilities
 # by Ben Greenfield
+# Co-authored by Ben Placzek
 # -------------------- #
 
 import datetime
@@ -39,3 +40,17 @@ def bye():
     print("Normal Termination")
     print("--------------------------")
 
+# takes an initial format argument followed by any number of data args
+# formats and prints an error message then exits
+def fatal(format, *argv):
+    print(format)
+    for x in argv:
+        print(x)
+    quit()
+
+# computes gcd using recursion ( shout-out to Scheme all my buddies love Scheme )
+def gcd(a,b):
+    if(b == 0):
+        return abs(a)
+    else:
+        return gcd(b, a % b)
