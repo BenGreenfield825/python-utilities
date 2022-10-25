@@ -57,7 +57,24 @@ def delay(seconds, debug_comments=False):
     counter = 0
     while counter < seconds:
         counter += 1
-        if debug_comments == True:
+        if debug_comments:
             print(counter)
         time.sleep(1)
-        
+
+
+# used to check if the given "item" is none type or is empty
+# second argument optional
+def is_none_or_empty(item, debug_comments=False):
+    if item is None:
+        if debug_comments:
+            print(f"{Fore.YELLOW}" + "Item is None")
+        return True
+    elif item == "":
+        if debug_comments:
+            print(f"{Fore.YELLOW}" + "Item is empty")
+        return True
+    else:
+        if debug_comments:
+            print(f"{Fore.RED}" + "Item is neither none nor empty")
+        return False
+
