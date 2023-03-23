@@ -3,7 +3,8 @@
 # by Ben Greenfield
 # Co-authored by Ben Placzek
 # -------------------- #
-
+import os
+import uuid
 import datetime
 import time
 from colorama import Fore
@@ -13,7 +14,7 @@ from colorama import Style
 LOG_FILE = "log.txt"
 LOG_RW_MODE = 'a'   # default read-write mode is append
 LOG_DATETIME = "%x %X"  # default is (local date, local time)
-NAME = "Ben Greenfield"
+NAME = "Ben Greenfield" # "Ben Placzek"
 # --------------- #
 
 
@@ -78,3 +79,41 @@ def is_none_or_empty(item, debug_comments=False):
             print(f"{Fore.RED}" + "Item is neither none nor empty")
         return False
 
+# gives a unique stamp to each file in a directory
+def rename_with_stamp(path, stamp):
+    for filename in os.listdir(path):
+        my_dest = path + stamp + "_" + filename
+        os.rename(path + filename, my_dest)
+
+#  give each file in a directory a unuid name
+# all files in directory must be the given fileType
+def uniquify_files(path, fileType):
+    for filename in os.listdir(path):
+        my_dest = path + str(uuid.uuid1()) + "." + fileType
+        os.rename(path + filename, my_dest)
+
+# gets total size of directory, needs full file path to work
+def get_size(start_path):
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(start_path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            # skip if it is symbolic link
+            if not os.path.islink(fp):
+                total_size += os.path.getsize(fp)
+
+    return total_size
+
+# file will be cleared out and written to with a 
+# listing of all the file names and the count at the bottom
+def directory_report(path, write_to):
+    count = 0
+
+    open(write_to, "w").close() # clear file
+    f = open(write_to, "a")
+    for x in os.listdir(path):
+        f.write(x + '\n')
+        count = count + 1
+    f.write("\nNumber of files: " + str(count) + '\n')
+    f.write("Size: " + str(get_size(path)/1e+9) + ' GB')
+    f.close()
