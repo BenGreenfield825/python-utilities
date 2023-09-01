@@ -11,15 +11,32 @@ from colorama import Fore
 from colorama import Style
 
 # --- Options --- #
-LOG_FILE = "log.txt"
-LOG_RW_MODE = 'a'   # default read-write mode is append
+LOG_FILE = "log.txt"  # default log name (also acts as location)
+LOG_RW_MODE = 'a'  # default read-write mode is append
 LOG_DATETIME = "%x %X"  # default is (local date, local time)
-NAME = "Ben Greenfield" # "Ben Placzek"
+NAME = "Ben Greenfield"  # "Ben Placzek"
 # --------------- #
+
+# TODO: update methods with proper docstrings
+
+
+def set_log_path(log_path):
+    """
+    Use to set path to log file. End path with '/'.
+    :param log_path:
+    :return: none
+    """
+    global LOG_FILE
+    LOG_FILE = log_path
 
 
 # pass info into function to have it written to a log file
 def write_to_log(info_to_write):
+    """
+    Pass info to write it to a log
+    :param info_to_write:
+    :return: none
+    """
     file = open(LOG_FILE, LOG_RW_MODE)
     if file:
         date = "(" + datetime.datetime.now().strftime(LOG_DATETIME) + ") "
@@ -79,11 +96,13 @@ def is_none_or_empty(item, debug_comments=False):
             print(f"{Fore.RED}" + "Item is neither none nor empty")
         return False
 
+
 # gives a unique stamp to each file in a directory
 def rename_with_stamp(path, stamp):
     for filename in os.listdir(path):
         my_dest = path + stamp + "_" + filename
         os.rename(path + filename, my_dest)
+
 
 #  give each file in a directory a unuid name
 # all files in directory must be the given fileType
@@ -91,6 +110,7 @@ def uniquify_files(path, fileType):
     for filename in os.listdir(path):
         my_dest = path + str(uuid.uuid1()) + "." + fileType
         os.rename(path + filename, my_dest)
+
 
 # gets total size of directory, needs full file path to work
 def get_size(start_path):
@@ -104,16 +124,17 @@ def get_size(start_path):
 
     return total_size
 
-# file will be cleared out and written to with a 
+
+# file will be cleared out and written to with a
 # listing of all the file names and the count at the bottom
 def directory_report(path, write_to):
     count = 0
 
-    open(write_to, "w").close() # clear file
+    open(write_to, "w").close()  # clear file
     f = open(write_to, "a")
     for x in os.listdir(path):
         f.write(x + '\n')
         count = count + 1
     f.write("\nNumber of files: " + str(count) + '\n')
-    f.write("Size: " + str(get_size(path)/1e+9) + ' GB')
+    f.write("Size: " + str(get_size(path) / 1e+9) + ' GB')
     f.close()
