@@ -19,15 +19,15 @@ NAME = "Ben Greenfield"  # "Ben Placzek"
 
 # TODO: update methods with proper docstrings
 
-
-def set_log_path(log_path):
-    """
-    Use to set path to log file. End path with '/'.
-    :param log_path:
-    :return: none
-    """
-    global LOG_FILE
-    LOG_FILE = log_path + LOG_FILE
+# TODO: revisit this, add something for creating file if does not exist
+# def set_log_path(log_path):
+#     """
+#     Use to set path to log file. End path with '/'.
+#     :param log_path:
+#     :return: none
+#     """
+#     global LOG_FILE
+#     LOG_FILE = log_path + LOG_FILE
 
 
 # pass info into function to have it written to a log file
