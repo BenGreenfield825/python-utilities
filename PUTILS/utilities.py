@@ -27,7 +27,7 @@ def set_log_path(log_path):
     :return: none
     """
     global LOG_FILE
-    LOG_FILE = log_path
+    LOG_FILE = log_path + LOG_FILE
 
 
 # pass info into function to have it written to a log file
